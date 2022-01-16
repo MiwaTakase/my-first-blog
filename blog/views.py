@@ -8,6 +8,15 @@ from .forms import PostForm_search_with_author
 from .forms import PostForm_search_with_title
 from django.shortcuts import redirect
 
+import json
+import requests
+import re
+import os
+import pprint
+import time
+import urllib.error
+import urllib.request
+
 def top_page(request):
     return render(request, 'blog/top_page.html')
 
@@ -72,9 +81,172 @@ def search_with_title(request):
     return render(request, 'blog/search_with_title.html', {'form': form})
 
 def search_result_with_author(request,author):
-    params = {'author': author}
+    title = use_googleAPI_author(author)
+    params = {'author': author,'title': title }
     return render(request, 'blog/search_result_with_author.html', params)
 
 def search_result_with_title(request,title):
-    params = {'title' : title}
+    result = use_googleAPI_author(title)
+    params = {'key' : title,'title' : result}
     return render(request, 'blog/search_result_with_title.html', params)
+
+def use_googleAPI_author(author):
+    REQUEST_URL_GOOGLE = 'https://www.googleapis.com/books/v1/volumes'
+
+    search_params_GoogleBooksAPI = {
+        "q"       : "inauthor: " + author,
+        "sort"    : "newest"
+    }
+
+    i = 0
+    response_GoogleBooksAPI = requests.get(REQUEST_URL_GOOGLE, search_params_GoogleBooksAPI)
+    result = response_GoogleBooksAPI.json()
+
+    totalItems = result["totalItems"]
+    print("件数 : ",totalItems)
+    if result["totalItems"] != 0:
+        if ("items" in result) == False:
+            items = "None"
+        else:
+            items = result["items"][i] #items
+
+        if ('volumeInfo' in items) == False:
+            info = "None"
+        else:
+            info = items['volumeInfo']
+
+        if ("saleInfo" in items) == False:
+            saleInfo = "None"
+        else:
+            saleInfo = items["saleInfo"]
+
+        if ('title' in info) == False:
+            title = "None"
+        else:
+            title = info['title']
+
+        if ('authors' in info) == False:
+            author = "None"
+        else: 
+            author = info['authors']
+
+        if ("publisher" in info) == False:
+            publisher = "None"
+        else:
+            publisher = info['publisher']
+
+        if ('publishedDate' in info) == False:
+            publisheddate = "None"
+        else:
+            publisheddate = info['publishedDate']
+
+        if ('pageCount' in info) == False:
+            pages = "None"
+        else:
+            pages = info['pageCount']
+
+        if ('printType' in info) == False:
+            info = "None"
+        else:
+            printtype = info['printType']
+
+        if ('description' in info) == False:
+            info = "None"
+        else:
+            description = info['description']
+
+        if ('language' in info) == False:
+            info = "None"
+        else:
+            language = info['language']
+
+        if ("isEbook" in saleInfo) == False:
+            info = "None"
+        else:
+            Ebook = saleInfo["isEbook"]
+
+        return title
+
+    else:
+        return "NOT FOUND"
+
+def use_googleAPI_title(author):
+    REQUEST_URL_GOOGLE = 'https://www.googleapis.com/books/v1/volumes'
+
+    search_params_GoogleBooksAPI = {
+        "q"       : "intitle: " + author,
+        "sort"    : "newest"
+    }
+
+    i = 0
+    response_GoogleBooksAPI = requests.get(REQUEST_URL_GOOGLE, search_params_GoogleBooksAPI)
+    result = response_GoogleBooksAPI.json()
+
+    totalItems = result["totalItems"]
+    print("件数 : ",totalItems)
+    if result["totalItems"] != 0:
+        if ("items" in result) == False:
+            items = "None"
+        else:
+            items = result["items"][i] #items
+
+        if ('volumeInfo' in items) == False:
+            info = "None"
+        else:
+            info = items['volumeInfo']
+
+        if ("saleInfo" in items) == False:
+            saleInfo = "None"
+        else:
+            saleInfo = items["saleInfo"]
+
+        if ('title' in info) == False:
+            title = "None"
+        else:
+            title = info['title']
+
+        if ('authors' in info) == False:
+            author = "None"
+        else: 
+            author = info['authors']
+
+        if ("publisher" in info) == False:
+            publisher = "None"
+        else:
+            publisher = info['publisher']
+
+        if ('publishedDate' in info) == False:
+            publisheddate = "None"
+        else:
+            publisheddate = info['publishedDate']
+
+        if ('pageCount' in info) == False:
+            pages = "None"
+        else:
+            pages = info['pageCount']
+
+        if ('printType' in info) == False:
+            info = "None"
+        else:
+            printtype = info['printType']
+
+        if ('description' in info) == False:
+            info = "None"
+        else:
+            description = info['description']
+
+        if ('language' in info) == False:
+            info = "None"
+        else:
+            language = info['language']
+
+        if ("isEbook" in saleInfo) == False:
+            info = "None"
+        else:
+            Ebook = saleInfo["isEbook"]
+
+        return title
+
+    else:
+        return "NOT FOUND"
+
