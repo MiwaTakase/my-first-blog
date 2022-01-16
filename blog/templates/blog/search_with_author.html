@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h2>著者を入力してください</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <a class="btn btn-default" href="{% url 'search_result_with_author' %}">ok</a>
+    </form>
+{% endblock %}
