@@ -1,3 +1,4 @@
+from multiprocessing import AuthenticationError
 from django.shortcuts import render
 from django.utils import timezone
 from .models import Post
@@ -49,15 +50,31 @@ def search(request):
     return render(request, 'blog/search.html')
 
 def search_with_author(request):
-    form = PostForm_search_with_author()
+    if request.method == "POST":
+        form = PostForm_search_with_author(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('search_result_with_author',author=post.author)
+    else:
+        form = PostForm_search_with_author()
     return render(request, 'blog/search_with_author.html', {'form': form})
 
 def search_with_title(request):
-    form = PostForm_search_with_title()
+    if request.method == "POST":
+        form = PostForm_search_with_title(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('search_result_with_title',title=post.title)
+    else:
+        form = PostForm_search_with_title()
     return render(request, 'blog/search_with_title.html', {'form': form})
 
-def search_result_with_author(request):
-    return render(request, 'blog/search_result_with_author.html')
+def search_result_with_author(request,author):
+    params = {'author': author}
+    return render(request, 'blog/search_result_with_author.html', params)
 
-def search_result_with_title(request):
-    return render(request, 'blog/search_result_with_title.html')
+def search_result_with_title(request,title):
+    params = {'title' : title}
+    return render(request, 'blog/search_result_with_title.html', params)

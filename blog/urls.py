@@ -10,6 +10,6 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('search/with_author/', views.search_with_author, name='search_with_author'),
     path('search/with_title/', views.search_with_title, name='search_with_title'),
-    path('search/result_with_author/<>', views.search_result_with_author, name='search_result_with_author'),
-    path('search/result_with_title/', views.search_result_with_title, name='search_result_with_title'),
+    path('search/result_with_author/<str:author>', views.search_result_with_author, name='search_result_with_author'),
+    path('search/result_with_title/<str:title>', views.search_result_with_title, name='search_result_with_title'),
 ]
