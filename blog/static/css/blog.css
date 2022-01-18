@@ -1,5 +1,5 @@
 .page-header {
-    background-color:#E9B8B8;
+    background-color:#cc9999;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
@@ -58,6 +58,14 @@ h1, h2, h3, h4 {
 .post h3 a{
     color: #A8B7CD;
     font-size: 18pt;
+}
+
+.btn--orange,
+a.btn--orange {
+  color: #999999;
+  font-size: 18pt;
+  background-color:#ffcc66;
+  margin-bottom: 50px;
 }
 
 .btn--orange,
