@@ -2,22 +2,23 @@
 
 {% block content %}
     <div class="post">
-        <h2><a href="">{{ author }}の検索結果</a></h2>
+        <h2>[ {{ author }} ]の検索結果</h2>
+        <br>
         {% for result in results %}
-            <h3><a href="{% url 'search_result_with_title_rakuten' title=result.title %}">タイトル:{{ result.title }}</a></h3>
+            <h3><a href="{% url 'search_result_with_title_rakuten' title=result.title %}">{{ result.title }}</a></h3>
             {% if result.author != "None" %}
-                <h3><a href="">著者:{{ result.author.0 }}</a></h3>
+                <h3>著者:{{ result.author.0 }}</h3>
             {% else %}  
-                <h3><a href="">著者:情報無し</a></h3>
+                <h3>著者:情報無し</h3>
             {% endif %}   
-            <h3><a href="">出版社:{{ result.publisher }}</a></h3> 
-            <h3><a href="">出版日:{{ result.publishedDate }}</a></h3>
-            <h3><a href="">ページ数:{{ result.pages }}</a></h3>
-            <h3><a href="">言語:{{ result.language }}</a></h3>
+            <h3>出版社:{{ result.publisher }}</h3> 
+            <h3>出版日:{{ result.publishedDate }}</h3>
+            <h3>ページ数:{{ result.pages }}</h3>
+            <h3>言語:{{ result.language }}</h3>
             {% if result.Ebook == "True" %}
-                <h3><a href="">電子書籍:有</a></h3>
+                <h3>電子書籍:有</h3>
             {% else %}
-                <h3><a href="">電子書籍:無</a></h3>
+                <h3>電子書籍:無</h3>
             {% endif %}
             <br>
         {% endfor %}

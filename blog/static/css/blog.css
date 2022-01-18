@@ -1,29 +1,32 @@
 .page-header {
-    background-color: #C25100;
+    background-color:#E9B8B8;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #ffffff;
+    color: #666666;
     font-size: 36pt;
     text-decoration: none;
 }
 
 .content {
-    margin-left: 40px;
+    margin-left: 60px;
+    color: #666666;
 }
 
 h1, h2, h3, h4 {
-    font-family: 'Lobster', cursive;
+    font-family: 'Hiragino Maru Gothic ProN W4';
+    color: #666666;
 }
 
 .date {
-    color: #828282;
+    color: #808080;
 }
 
 .save {
     float: right;
+    font-family: 'Hiragino Maru Gothic ProN W4';
 }
 
 .post-form textarea, .post-form input {
@@ -39,8 +42,28 @@ h1, h2, h3, h4 {
 
 .post {
     margin-bottom: 70px;
+    color: #666666;
 }
 
-.post h2 a, .post h2 a:visited {
-    color: #000000;
+.post h2 a, .post h2 a:visited{
+    color: #666666;
+    font-size: 20pt;
+}
+
+.post h3{
+    color: #666666;
+    font-size: 15pt;
+}
+
+.post h3 a{
+    color: #A8B7CD;
+    font-size: 18pt;
+}
+
+.btn--orange,
+a.btn--orange {
+  color: #666666;
+  font-size: 18pt;
+  background-color:#D8D5A8;
+  margin-bottom: 50px;
 }
