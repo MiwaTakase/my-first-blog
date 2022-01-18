@@ -4,7 +4,7 @@
     <div class="post">
         <h2><a href="">{{ author }}の検索結果</a></h2>
         {% for result in results %}
-            <h3><a href="">タイトル:{{ result.title }}</a></h3>
+            <h3><a href="{% url 'search_result_with_author_rakuten' title=result.title %}">タイトル:{{ result.title }}</a></h3>
             {% if result.author != "None" %}
                 <h3><a href="">著者:{{ result.author.0 }}</a></h3>
             {% else %}  

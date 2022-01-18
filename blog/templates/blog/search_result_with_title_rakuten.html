@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        <h2><a href="">{{ title }}の検索結果</a></h2>
+        {% if totalItems == 0 %}
+            <h3><a href="">楽天Booksでの取り扱いはありません</a></h3>
+        {% else %}
+            {% for result in results %}
+                <h3><a href="">タイトル:{{ result.title }}</a></h3>
+                <h3><a href="">価格:¥{{ result.itemPrice }}</a></h3>
+                <h3><a href="{{result.itemUrl}}">URL</a></h3>
+                {% if result.availability == "1" %}
+                    <h3><a href="">在庫あり</a></h3>
+                {% else %}
+                    <h3><a href="">在庫無し</a></h3>
+                {% endif %}
+                <br>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

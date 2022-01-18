@@ -81,7 +81,7 @@ def search_with_title(request):
     return render(request, 'blog/search_with_title.html', {'form': form})
 
 def search_result_with_author(request,author):
-    results = use_googleAPI_author(author,"author")
+    results = use_googleAPI(author,"author")
     params = {
         'author': author,
         'results': results,
@@ -89,15 +89,25 @@ def search_result_with_author(request,author):
     return render(request, 'blog/search_result_with_author.html', params)
 
 def search_result_with_title(request,title):
-    results = use_googleAPI_author(title,"title")
+    results = use_googleAPI(title,"title")
     params = {
         'author': title,
         'results': results,
     }
     return render(request, 'blog/search_result_with_title.html', params)
 
+def search_result_with_title_rakuten(request,title):
+    results,totalItems = use_rakutenBooksAPI(title)
+    print("in rakuten API",title)
+    params = {
+        'title': title,
+        'results': results,
+        'totalItems': totalItems
+    }
+    return render(request, 'blog/search_result_with_title_rakuten.html', params)
 
-def use_googleAPI_author(input,author_or_title):
+
+def use_googleAPI(input,author_or_title):
     REQUEST_URL_GOOGLE = 'https://www.googleapis.com/books/v1/volumes'
 
     if author_or_title == "author":
@@ -197,4 +207,32 @@ def use_googleAPI_author(input,author_or_title):
 
     else:
         return "NOT FOUND"
+
+def use_rakutenBooksAPI(title):
+    REQUEST_URL = "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404"
+    APP_ID = "1019302335940233245"  
+
+    search_params = {
+        "format" : "json",
+        "title" : title,
+        "applicationId" : [APP_ID],
+        "availability" : 0,
+        "hits" : 10,
+        "page" : 1,
+        "sort" : "standard"
+    }
+
+    response = requests.get(REQUEST_URL, search_params)
+    result = response.json()
+    item_key = ["title","publisher","publisheddate",'itemPrice','itemUrl',"largeImageUrl","availability"]
+    book_list = list()
+    for i in range(0, len(result['Items'])):
+        tmp_item = {}
+        item = result['Items'][i]['Item']
+        for key, value in item.items():
+            if key in item_key:
+                tmp_item[key] = value
+        book_list.append(tmp_item.copy())
+    return book_list,len(result["Items"])
+
 
