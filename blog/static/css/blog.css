@@ -1,23 +1,23 @@
 .page-header {
-    background-color:#cc9999;
+    background-color:#E9B8B8;
     margin-top: 0;
     padding: 20px 20px 20px 40px;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
-    color: #808080;
+    color: #666666;
     font-size: 36pt;
     text-decoration: none;
 }
 
 .content {
     margin-left: 60px;
-    color: #808080;
+    color: #666666;
 }
 
 h1, h2, h3, h4 {
     font-family: 'Hiragino Maru Gothic ProN W4';
-    color: #808080;
+    color: #666666;
 }
 
 .date {
@@ -42,16 +42,16 @@ h1, h2, h3, h4 {
 
 .post {
     margin-bottom: 70px;
-    color: #808080;
+    color: #666666;
 }
 
 .post h2 a, .post h2 a:visited{
-    color: #808080;
+    color: #666666;
     font-size: 20pt;
 }
 
 .post h3{
-    color: #808080;
+    color: #666666;
     font-size: 15pt;
 }
 
@@ -62,16 +62,8 @@ h1, h2, h3, h4 {
 
 .btn--orange,
 a.btn--orange {
-  color: #808080;
+  color: #666666;
   font-size: 18pt;
-  background-color:#ff0000;
-  margin-bottom: 50px;
-}
-
-.btn--orange,
-a.btn--orange {
-  color: #808080;
-  font-size: 18pt;
-  background-color:#ff0000;
+  background-color:#D8D5A8;
   margin-bottom: 50px;
 }
